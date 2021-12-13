@@ -1,3 +1,4 @@
+import random
 # 0 at the beginning to make using indexed easier
 field = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
@@ -41,18 +42,26 @@ def winCheck():
     if(field[3] == field[6] == field[9]):
         print("Player ", field[3], " won the game.")
         gameOver = True
-    if(gameOver):
-        return True
-    else:
-        return False
+    return gameOver
+
+
+class Ai:
+    def chooseField(self):
+        rand = random.randint(1, 9)
+        while(field[rand] == "O" or field[rand] == "X"):
+            rand = random.randint(1, 9)
+        field[rand] = "O"
 
 
 def playGame():
+    ai = Ai()
     while(not winCheck()):
         showField()
         input1 = int(input(
             "Enter the location where you want to place your symbol: (free ones are marked with numbers)"))
         placeX(input1)
+        ai.chooseField()
+        showField()
     showField()
     print('over.')
 
