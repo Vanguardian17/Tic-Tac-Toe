@@ -47,4 +47,14 @@ def winCheck():
         return False
 
 
-showField()
+def playGame():
+    while(not winCheck()):
+        showField()
+        input1 = int(input(
+            "Enter the location where you want to place your symbol: (free ones are marked with numbers)"))
+        placeX(input1)
+    showField()
+    print('over.')
+
+
+playGame()
