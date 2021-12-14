@@ -46,24 +46,51 @@ def winCheck():
 
 
 class Ai:
+
+    def __init__(self, aiSymbol):
+        self.aiSymbol = aiSymbol
+
     def chooseField(self):
         rand = random.randint(1, 9)
         while(field[rand] == "O" or field[rand] == "X"):
             rand = random.randint(1, 9)
-        field[rand] = "O"
+        field[rand] = self.aiSymbol
+
+
+playerSymbol = ''
+
+
+def gameStart():
+    input2 = input("Choose your symbol: type 'X' or 'O' ")
+    if(input2 == 'X'):
+        playerSymbol = 'X'
+    else:
+        playerSymbol = 'O'
 
 
 def playGame():
-    ai = Ai()
+    if(playerSymbol == 'X'):
+        ai = Ai('O')
+    else:
+        ai = Ai('X')
     while(not winCheck()):
         showField()
-        input1 = int(input(
-            "Enter the location where you want to place your symbol: (free ones are marked with numbers)"))
-        placeX(input1)
-        ai.chooseField()
-        showField()
+        if(playerSymbol == 'X'):
+            input1 = int(input(
+                "Enter the location where you want to place your symbol: (free ones are marked with numbers)"))
+            placeX(input1)
+            ai.chooseField()
+            showField()
+        else:
+            ai.chooseField()
+            showField()
+            input1 = int(input(
+                "Enter the location where you want to place your symbol: (free ones are marked with numbers)"))
+            placeO(input1)
+            showField()
     showField()
     print('over.')
 
 
+gameStart()
 playGame()
